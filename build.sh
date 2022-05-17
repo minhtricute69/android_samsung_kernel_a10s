@@ -1,0 +1,11 @@
+#!/bin/bash
+echo "Clean Build Environment" ;
+make clean && make mrproper ; 
+echo "Init ENV" ;
+export ANDROID_MAJOR_VERSION=q ;
+export PLATFORM_VERSION=10 ;
+export ARCH=arm64 ;
+export SUBARCH=arm64 ;
+echo "Building Kernel" ;
+make -C $(pwd) O=$(pwd)/out KCFLAGS=-w CONFIG_SECTION_MISMATCH_WARN_ONLY=y physwizz_defconfig ;
+make -C $(pwd) O=$(pwd)/out KCFLAGS=-w CONFIG_SECTION_MISMATCH_WARN_ONLY=y -j2 ;
